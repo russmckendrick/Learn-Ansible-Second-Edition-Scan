@@ -1,0 +1,360 @@
+{
+	"kics_version": "v1.7.12",
+	"files_scanned": 33,
+	"lines_scanned": 1828,
+	"files_parsed": 32,
+	"lines_parsed": 1890,
+	"lines_ignored": 173,
+	"files_failed_to_scan": 0,
+	"queries_total": 292,
+	"queries_failed_to_execute": 0,
+	"queries_failed_to_compute_similarity_id": 0,
+	"scan_id": "console",
+	"severity_counters": {
+		"HIGH": 4,
+		"INFO": 11,
+		"LOW": 3,
+		"MEDIUM": 1,
+		"TRACE": 0
+	},
+	"total_counter": 19,
+	"total_bom_resources": 0,
+	"start": "2024-01-26T12:55:39.525869847Z",
+	"end": "2024-01-26T12:55:45.168710627Z",
+	"paths": [
+		"/path"
+	],
+	"queries": [
+		{
+			"query_name": "EFS Not Encrypted",
+			"query_id": "727c4fd4-d604-4df6-a179-7713d3c85e20",
+			"query_url": "https://docs.ansible.com/ansible/latest/collections/community/aws/efs_module.html#parameter-encrypt",
+			"severity": "HIGH",
+			"platform": "Ansible",
+			"cloud_provider": "AWS",
+			"category": "Encryption",
+			"experimental": false,
+			"description": "Elastic File System (EFS) must be encrypted",
+			"description_id": "f4c8801c",
+			"files": [
+				{
+					"file_name": "../../path/destroy.yml",
+					"similarity_id": "669b87cba82328856122b860a2aff88c393723e69343cdfcb0b09099b6be481d",
+					"line": 76,
+					"resource_type": "community.aws.efs",
+					"resource_name": "Delete the EFS File System",
+					"issue_type": "MissingAttribute",
+					"search_key": "name={{Delete the EFS File System}}.{{community.aws.efs}}",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "efs.encrypt should be set to true",
+					"actual_value": "efs.encrypt is undefined"
+				},
+				{
+					"file_name": "../../path/roles/efs/tasks/main.yml",
+					"similarity_id": "02af778174a417507af1cb8af3b702a65255298e812a4660c5e80821f37905ce",
+					"line": 24,
+					"resource_type": "community.aws.efs",
+					"resource_name": "Create the EFS File System",
+					"issue_type": "MissingAttribute",
+					"search_key": "name={{Create the EFS File System}}.{{community.aws.efs}}",
+					"search_line": -1,
+					"search_value": "",
+					"expected_value": "efs.encrypt should be set to true",
+					"actual_value": "efs.encrypt is undefined"
+				}
+			]
+		},
+		{
+			"query_name": "EFS Without KMS",
+			"query_id": "bd77554e-f138-40c5-91b2-2a09f878608e",
+			"query_url": "https://docs.ansible.com/ansible/latest/collections/community/aws/efs_module.html#parameter-kms_key_id",
+			"severity": "HIGH",
+			"platform": "Ansible",
+			"cloud_provider": "AWS",
+			"category": "Encryption",
+			"experimental": false,
+			"description": "Amazon Elastic Filesystem should have filesystem encryption enabled using KMS CMK customer-managed keys instead of AWS managed-keys",
+			"description_id": "a01870d5",
+			"files": [
+				{
+					"file_name": "../../path/destroy.yml",
+					"similarity_id": "57454bfffe3457afe406adca6f332a43eca14756f59400d0c214c33c2ca95261",
+					"line": 76,
+					"resource_type": "community.aws.efs",
+					"resource_name": "Delete the EFS File System",
+					"issue_type": "MissingAttribute",
+					"search_key": "name={{Delete the EFS File System}}.{{community.aws.efs}}",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "efs.kms_key_id should be set",
+					"actual_value": "efs.kms_key_id is undefined"
+				},
+				{
+					"file_name": "../../path/roles/efs/tasks/main.yml",
+					"similarity_id": "cbf42cd10fc2b714cb530b766cc0e2b6c4dbe4b0abd647f9e3b67e5121ec15c0",
+					"line": 24,
+					"resource_type": "community.aws.efs",
+					"resource_name": "Create the EFS File System",
+					"issue_type": "MissingAttribute",
+					"search_key": "name={{Create the EFS File System}}.{{community.aws.efs}}",
+					"search_line": -1,
+					"search_value": "",
+					"expected_value": "efs.kms_key_id should be set",
+					"actual_value": "efs.kms_key_id is undefined"
+				}
+			]
+		},
+		{
+			"query_name": "Auto Scaling Group With No Associated ELB",
+			"query_id": "050f085f-a8db-4072-9010-2cca235cc02f",
+			"query_url": "https://docs.ansible.com/ansible/latest/collections/community/aws/ec2_asg_module.html#parameter-load_balancers",
+			"severity": "MEDIUM",
+			"platform": "Ansible",
+			"cloud_provider": "AWS",
+			"category": "Availability",
+			"experimental": false,
+			"description": "AWS Auto Scaling Groups must have associated ELBs to ensure high availability and improve application performance. This means the attribute 'load_balancers' must be defined and not empty.",
+			"description_id": "57b5fbca",
+			"files": [
+				{
+					"file_name": "../../path/destroy.yml",
+					"similarity_id": "076a637e51007eef4a84a8a7aec969cdbf55e8c6e4845b535667615264f6b182",
+					"line": 17,
+					"resource_type": "community.aws.ec2_asg",
+					"resource_name": "Delete the Auto Scaling Group",
+					"issue_type": "MissingAttribute",
+					"search_key": "name={{Delete the Auto Scaling Group}}.{{community.aws.ec2_asg}}",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "community.aws.ec2_asg.load_balancers should be set and not empty",
+					"actual_value": "community.aws.ec2_asg.load_balancers is undefined"
+				}
+			]
+		},
+		{
+			"query_name": "EFS Without Tags",
+			"query_id": "b8a9852c-9943-4973-b8d5-77dae9352851",
+			"query_url": "https://docs.ansible.com/ansible/latest/collections/community/aws/efs_module.html",
+			"severity": "LOW",
+			"platform": "Ansible",
+			"cloud_provider": "AWS",
+			"category": "Build Process",
+			"experimental": false,
+			"description": "Amazon Elastic Filesystem should have filesystem tags associated",
+			"description_id": "1e03284b",
+			"files": [
+				{
+					"file_name": "../../path/destroy.yml",
+					"similarity_id": "b8d1e287a94cdb7bdfebdc123011c91d57e8d12ec79be7294f1ab32c4f0f1005",
+					"line": 76,
+					"resource_type": "community.aws.efs",
+					"resource_name": "Delete the EFS File System",
+					"issue_type": "MissingAttribute",
+					"search_key": "name={{Delete the EFS File System}}.{{community.aws.efs}}",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "name={{Delete the EFS File System}}.{{community.aws.efs}}.tags should be set",
+					"actual_value": "name={{Delete the EFS File System}}.{{community.aws.efs}}.tags is not defined"
+				}
+			]
+		},
+		{
+			"query_name": "Unpinned Package Version",
+			"query_id": "c05e2c20-0a2c-4686-b1f8-5f0a5612d4e8",
+			"query_url": "https://ansible.readthedocs.io/projects/lint/rules/package-latest/",
+			"severity": "LOW",
+			"platform": "Ansible",
+			"cloud_provider": "COMMON",
+			"category": "Supply-Chain",
+			"experimental": false,
+			"description": "Setting state to latest performs an update and installs additional packages possibly resulting in performance degradation or loss of service",
+			"description_id": "43e877b3",
+			"files": [
+				{
+					"file_name": "../../path/roles/stack-install/tasks/main.yml",
+					"similarity_id": "ec7a8aceec8fe60162f6f8edad6110cf91c1f13e98d46a6a3aff7b5a4cfa4b7b",
+					"line": 8,
+					"resource_type": "ansible.builtin.apt",
+					"resource_name": "update apt-cache and upgrade packages",
+					"issue_type": "IncorrectValue",
+					"search_key": "name={{update apt-cache and upgrade packages}}.{{ansible.builtin.apt}}.state",
+					"search_line": -1,
+					"search_value": "",
+					"expected_value": "State's task when installing a package should not be defined as 'latest' or should have set 'update_only' to 'true'",
+					"actual_value": "State's task is set to 'latest'"
+				},
+				{
+					"file_name": "../../path/roles/stack-install/tasks/main.yml",
+					"similarity_id": "bba37974dd67cdb4aa54550f8e3b9613b75f5304ec0655afa9ca1d5ff4c33b10",
+					"line": 29,
+					"resource_type": "ansible.builtin.apt",
+					"resource_name": "update cache and install the stack packages",
+					"issue_type": "IncorrectValue",
+					"search_key": "name={{update cache and install the stack packages}}.{{ansible.builtin.apt}}.state",
+					"search_line": -1,
+					"search_value": "",
+					"expected_value": "State's task when installing a package should not be defined as 'latest' or should have set 'update_only' to 'true'",
+					"actual_value": "State's task is set to 'latest'"
+				}
+			]
+		},
+		{
+			"query_name": "Risky File Permissions",
+			"query_id": "88841d5c-d22d-4b7e-a6a0-89ca50e44b9f",
+			"query_url": "https://ansible.readthedocs.io/projects/lint/rules/risky-file-permissions/",
+			"severity": "INFO",
+			"platform": "Ansible",
+			"cloud_provider": "COMMON",
+			"category": "Supply-Chain",
+			"experimental": false,
+			"description": "Some modules could end up creating new files on disk with permissions that might be too open or unpredictable",
+			"description_id": "1f0e1485",
+			"files": [
+				{
+					"file_name": "../../path/roles/stack-config/tasks/main.yml",
+					"similarity_id": "00bc5ea78bcc648bdfd8ba76dc22e1b30ce0002d2339cdd5a6b1c61a314a6c67",
+					"line": 140,
+					"resource_type": "ansible.builtin.template",
+					"resource_name": "set up .my.cnf file",
+					"issue_type": "MissingAttribute",
+					"search_key": "name={{set up .my.cnf file}}.{{ansible.builtin.template}}",
+					"search_line": -1,
+					"search_value": "",
+					"expected_value": "All the permissions set in ansible.builtin.template about creating files/directories",
+					"actual_value": "There are some permissions missing in ansible.builtin.template and might create directory/file"
+				},
+				{
+					"file_name": "../../path/destroy.yml",
+					"similarity_id": "4485bb79457e5f8d483cf47f5f63b0584e6813781e86dd23997ac81aa755f915",
+					"line": 52,
+					"resource_type": "file",
+					"resource_name": "Delete the group_vars/generated_aws_endpoints.yml file",
+					"issue_type": "MissingAttribute",
+					"search_key": "name={{Delete the group_vars/generated_aws_endpoints.yml file}}.{{file}}",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "All the permissions set in file about creating files/directories",
+					"actual_value": "There are some permissions missing in file and might create directory/file"
+				},
+				{
+					"file_name": "../../path/roles/stack-config/tasks/main.yml",
+					"similarity_id": "70ebf7b7c4fa6729a542b19cd28e01a0d90af0c192cfce6ad39ee3a6ae932c72",
+					"line": 64,
+					"resource_type": "ansible.builtin.copy",
+					"resource_name": "copy the restrictions.conf to /etc/nginx/global/",
+					"issue_type": "MissingAttribute",
+					"search_key": "name={{copy the restrictions.conf to /etc/nginx/global/}}.{{ansible.builtin.copy}}",
+					"search_line": -1,
+					"search_value": "",
+					"expected_value": "All the permissions set in ansible.builtin.copy about creating files/directories",
+					"actual_value": "There are some permissions missing in ansible.builtin.copy and might create directory/file"
+				},
+				{
+					"file_name": "../../path/roles/efs/tasks/main.yml",
+					"similarity_id": "8b04d592c05b51af1c115de190f3502a8e0132623dcad405de38a6e40f213089",
+					"line": 16,
+					"resource_type": "ansible.builtin.template",
+					"resource_name": "Generate the efs targets vars file",
+					"issue_type": "MissingAttribute",
+					"search_key": "name={{Generate the efs targets vars file}}.{{ansible.builtin.template}}",
+					"search_line": -1,
+					"search_value": "",
+					"expected_value": "All the permissions set in ansible.builtin.template about creating files/directories",
+					"actual_value": "There are some permissions missing in ansible.builtin.template and might create directory/file"
+				},
+				{
+					"file_name": "../../path/roles/wordpress/tasks/main.yml",
+					"similarity_id": "4e8c0f4e744234a6951f630958175d45736cb1c56beee0cab9b34efd00290f07",
+					"line": 12,
+					"resource_type": "ansible.builtin.get_url",
+					"resource_name": "download wp-cli",
+					"issue_type": "MissingAttribute",
+					"search_key": "name={{download wp-cli}}.{{ansible.builtin.get_url}}",
+					"search_line": -1,
+					"search_value": "",
+					"expected_value": "All the permissions set in ansible.builtin.get_url about creating files/directories",
+					"actual_value": "There are some permissions missing in ansible.builtin.get_url and might create directory/file"
+				},
+				{
+					"file_name": "../../path/destroy.yml",
+					"similarity_id": "5e572b14a9e933bcae7a8bf9bf88c61656ddd417905c4c68dbb34a1ed9307edb",
+					"line": 81,
+					"resource_type": "file",
+					"resource_name": "Delete the group_vars/generated_efs_targets.yml file",
+					"issue_type": "MissingAttribute",
+					"search_key": "name={{Delete the group_vars/generated_efs_targets.yml file}}.{{file}}",
+					"search_line": 0,
+					"search_value": "",
+					"expected_value": "All the permissions set in file about creating files/directories",
+					"actual_value": "There are some permissions missing in file and might create directory/file"
+				},
+				{
+					"file_name": "../../path/roles/stack-config/tasks/main.yml",
+					"similarity_id": "8388bc6192b65b87888b96c105ba9d73587ef00bc14a84e50470e82bffe70f26",
+					"line": 46,
+					"resource_type": "ansible.builtin.template",
+					"resource_name": "copy the nginx.conf to /etc/nginx/",
+					"issue_type": "MissingAttribute",
+					"search_key": "name={{copy the nginx.conf to /etc/nginx/}}.{{ansible.builtin.template}}",
+					"search_line": -1,
+					"search_value": "",
+					"expected_value": "All the permissions set in ansible.builtin.template about creating files/directories",
+					"actual_value": "There are some permissions missing in ansible.builtin.template and might create directory/file"
+				},
+				{
+					"file_name": "../../path/roles/stack-config/tasks/main.yml",
+					"similarity_id": "66a97820280a856c3cecb3e82a987553cd50c78b06367ef30ba9f24bdd042fa3",
+					"line": 87,
+					"resource_type": "ansible.builtin.template",
+					"resource_name": "copy the www.conf to /etc/php-fpm.d/",
+					"issue_type": "MissingAttribute",
+					"search_key": "name={{copy the www.conf to /etc/php-fpm.d/}}.{{ansible.builtin.template}}",
+					"search_line": -1,
+					"search_value": "",
+					"expected_value": "All the permissions set in ansible.builtin.template about creating files/directories",
+					"actual_value": "There are some permissions missing in ansible.builtin.template and might create directory/file"
+				},
+				{
+					"file_name": "../../path/roles/endpoints/tasks/main.yml",
+					"similarity_id": "250f3bd65cc9bb74ff235d891baff2701a1fd0e70eb3868e10583592fdecf92d",
+					"line": 5,
+					"resource_type": "ansible.builtin.template",
+					"resource_name": "Generate the aws endpoints file",
+					"issue_type": "MissingAttribute",
+					"search_key": "name={{Generate the aws endpoints file}}.{{ansible.builtin.template}}",
+					"search_line": -1,
+					"search_value": "",
+					"expected_value": "All the permissions set in ansible.builtin.template about creating files/directories",
+					"actual_value": "There are some permissions missing in ansible.builtin.template and might create directory/file"
+				},
+				{
+					"file_name": "../../path/roles/stack-config/tasks/main.yml",
+					"similarity_id": "84e2a6bcdf0101608c58f2880dfdd152216a50ddc51468d7a9f35a809b7d2235",
+					"line": 52,
+					"resource_type": "ansible.builtin.template",
+					"resource_name": "copy the default.conf to /etc/nginx/conf.d/",
+					"issue_type": "MissingAttribute",
+					"search_key": "name={{copy the default.conf to /etc/nginx/conf.d/}}.{{ansible.builtin.template}}",
+					"search_line": -1,
+					"search_value": "",
+					"expected_value": "All the permissions set in ansible.builtin.template about creating files/directories",
+					"actual_value": "There are some permissions missing in ansible.builtin.template and might create directory/file"
+				},
+				{
+					"file_name": "../../path/roles/stack-config/tasks/main.yml",
+					"similarity_id": "29202108a4c5b82d8f99a731166e2ae769067ce8deb28fc3a661de4d1339c480",
+					"line": 70,
+					"resource_type": "ansible.builtin.template",
+					"resource_name": "copy the wordpress_shared.conf to /etc/nginx/global/",
+					"issue_type": "MissingAttribute",
+					"search_key": "name={{copy the wordpress_shared.conf to /etc/nginx/global/}}.{{ansible.builtin.template}}",
+					"search_line": -1,
+					"search_value": "",
+					"expected_value": "All the permissions set in ansible.builtin.template about creating files/directories",
+					"actual_value": "There are some permissions missing in ansible.builtin.template and might create directory/file"
+				}
+			]
+		}
+	]
+}
