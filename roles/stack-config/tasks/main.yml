@@ -46,12 +46,14 @@
   ansible.builtin.template:
     src: "nginx-nginx.conf.j2"
     dest: "/etc/nginx/nginx.conf"
+    mode: "0644"
   notify: "restart nginx"
 
 - name: copy the default.conf to /etc/nginx/conf.d/
   ansible.builtin.template:
     src: "nginx-confd-default.conf.j2"
     dest: "/etc/nginx/conf.d/default.conf"
+    mode: "0644"
   notify: "restart nginx"
 
 - name: "create the global directory in /etc/nginx/"
@@ -64,12 +66,14 @@
   ansible.builtin.copy:
     src: "nginx-global-restrictions.conf"
     dest: "/etc/nginx/global/restrictions.conf"
+    mode: "0644"
   notify: "restart nginx"
 
 - name: copy the wordpress_shared.conf to /etc/nginx/global/
   ansible.builtin.template:
     src: "nginx-global-wordpress_shared.conf.j2"
     dest: "/etc/nginx/global/wordpress_shared.conf"
+    mode: "0644"
   notify: "restart nginx"
 
 # PHP configuration tasks
@@ -87,6 +91,7 @@
   ansible.builtin.template:
     src: "php-fpmd-www.conf.j2"
     dest: "{{ php_fpm_path }}"
+    mode: "0644"
   notify: "restart php-fpm"
 
 - name: configure php.ini
@@ -140,6 +145,7 @@
   ansible.builtin.template:
     src: "my.cnf.j2"
     dest: "~/.my.cnf"
+    mode: "0644"
 
 # - name: delete anonymous MySQL user
 #   ansible.builtin.mysql_user:
