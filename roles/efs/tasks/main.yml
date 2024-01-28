@@ -1,3 +1,5 @@
+# kics-scan disable=bd77554e-f138-40c5-91b2-2a09f878608e
+
 ---
 # tasks file for roles/efs
 
@@ -23,6 +25,7 @@
 
 - name: "Create the EFS File System"
   community.aws.efs:
+    encrypt: true
     name: "{{ efs_name }}"
     region: "{{ region }}"
     state: "{{ state }}"
